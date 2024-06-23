@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+#define  ll  long long
+#define fastread() (ios_base::sync_with_stdio(0),cin.tie(0));
+using namespace __gnu_pbds;
+using namespace std;
+template <typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+const int mod = 1e9+7;
+
+void solve()
+{
+    ll n;
+    cin>>n;
+    vector<ll>a(n);
+    for(ll i = 0;i<n;i++) cin>>a[i];
+    ll sum = 0;
+    ll mx = -(ll)1e16;
+    ll i = 0,j = 1;
+    while(j<n)
+    {
+        if(a[j]%2 == a[j-1]%2)
+        {
+            mx = max(mx,sum);
+            i = j;
+            sum = a[j];
+            j++;
+            continue;
+        }
+        sum+=a[j];
+        mx = max(mx,sum);
+        j++;
+    }
+    cout<<mx<<"\n";
+    
+}
+
+int main()
+{
+    fastread();
+    int t;
+    cin>>t;
+    while(t--)
+    {
+       solve();
+    }
+     
+    return 0;
+}
