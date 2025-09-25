@@ -1,3 +1,8 @@
+#ifndef ONLINE_JUDGE
+#include "debugger.h"
+#else
+#define dbg(...)
+#endif
 #include <bits/stdc++.h>
 #define int long long
 #define ll long long
@@ -12,26 +17,34 @@
     cin.tie(0);                   \
     cout.tie(0);
 using namespace std;
-const int mod = 1e9 + 7;
+const int mod = 998244353;
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    vector<int> company(k, 0);
-    for (int i = 0; i < k; i++)
+    int n;
+    cin >> n;
+    int a[n + 1];
+    for (int i = 1; i <= n; i++)
     {
-        int idx, value;
-        cin >> idx >> value;
-        idx--;
-        company[idx] += value;
+        cin >> a[i];
     }
-    sort(company.begin(), company.end(), greater<int>());
-    int ans = 0;
-    for (int i = 0; i < min(n, k); i++)
+    vector<int> dp(n + 1, 0);
+    if (a[1] == 0)
+        dp[1] = 1;
+    for (int i = 2; i <= n; i++)
     {
-        ans += company[i];
+        // if honest
+        if (a[i] == a[i - 1])
+        {
+            dp[i] += dp[i - 1];
+        }
+        else if (a[i] == a[i - 2] + 1)
+        {
+            dp[i] += dp[i - 2];
+        }
+        dp[i] %= mod;
     }
-    cout << ans << "\n";
+
+    cout << dp[n] + dp[n - 1] << "\n";
 }
 
 int32_t main()

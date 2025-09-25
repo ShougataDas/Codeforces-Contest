@@ -13,23 +13,43 @@
     cout.tie(0);
 using namespace std;
 const int mod = 1e9 + 7;
+int n, k;
+vector<int> a;
+bool check(int mid)
+{
+    bool on = true;
+    for (int i = 0; i < n; i++)
+    {
+        int rem = mid - a[i];
+        if ((rem / k) % 2 == 1)
+        {
+            on = false;
+            break;
+        }
+    }
+    return on;
+}
 void solve()
 {
-    int n, k;
+    // int n,k;
     cin >> n >> k;
-    vector<int> company(k, 0);
-    for (int i = 0; i < k; i++)
+    a.resize(n);
+    int mn = LLONG_MAX;
+    int mx = -1;
+    for (int i = 0; i < n; i++)
     {
-        int idx, value;
-        cin >> idx >> value;
-        idx--;
-        company[idx] += value;
+        cin >> a[i];
+        mn = min(mn,a[i]);
+        mx = max(mx,a[i]);
     }
-    sort(company.begin(), company.end(), greater<int>());
-    int ans = 0;
-    for (int i = 0; i < min(n, k); i++)
+    int ans = -1;
+    for(int i = mx;i<=mx+k;i++)
     {
-        ans += company[i];
+        if(check(i))
+        {
+            cout<<i<<"\n";
+            return;
+        }
     }
     cout << ans << "\n";
 }

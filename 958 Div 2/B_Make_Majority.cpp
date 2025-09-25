@@ -15,23 +15,27 @@ using namespace std;
 const int mod = 1e9 + 7;
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    vector<int> company(k, 0);
-    for (int i = 0; i < k; i++)
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int z = 0, o = 0;
+    for (int i = 0; i < n; i++)
     {
-        int idx, value;
-        cin >> idx >> value;
-        idx--;
-        company[idx] += value;
+        if (s[i] == '0')
+        {
+            if (i == 0)
+                z++;
+            else if (s[i - 1] == '1')
+                z++;
+        }
+        else
+            o++;
     }
-    sort(company.begin(), company.end(), greater<int>());
-    int ans = 0;
-    for (int i = 0; i < min(n, k); i++)
-    {
-        ans += company[i];
-    }
-    cout << ans << "\n";
+    if (z >= o)
+        cno;
+    else
+        cyes;
 }
 
 int32_t main()

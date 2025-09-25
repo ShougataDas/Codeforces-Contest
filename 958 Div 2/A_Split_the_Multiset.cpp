@@ -17,21 +17,29 @@ void solve()
 {
     int n, k;
     cin >> n >> k;
-    vector<int> company(k, 0);
-    for (int i = 0; i < k; i++)
+    if (n == 1)
     {
-        int idx, value;
-        cin >> idx >> value;
-        idx--;
-        company[idx] += value;
+        cout << 0 << "\n";
+        return;
     }
-    sort(company.begin(), company.end(), greater<int>());
-    int ans = 0;
-    for (int i = 0; i < min(n, k); i++)
+    int count = 0;
+    multiset<int> mt;
+    mt.insert(n);
+    while (mt.size() < n)
     {
-        ans += company[i];
+        int cur = *mt.rbegin();
+        mt.erase(mt.find(cur));
+        int mini = min(k, n);
+        for (int i = 0; i < mini - 1; i++)
+        {
+            mt.insert(1);
+        }
+        // cout<<cur<<" ";
+        mt.insert(cur - k + 1);
+        count++;
+        // cout<<count<<"\n";
     }
-    cout << ans << "\n";
+    cout << count << "\n";
 }
 
 int32_t main()

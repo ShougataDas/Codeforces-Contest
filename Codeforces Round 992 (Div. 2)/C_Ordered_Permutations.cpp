@@ -1,3 +1,8 @@
+#ifndef ONLINE_JUDGE
+#include "debugger.h"
+#else
+#define dbg(...)
+#endif
 #include <bits/stdc++.h>
 #define int long long
 #define ll long long
@@ -13,25 +18,42 @@
     cout.tie(0);
 using namespace std;
 const int mod = 1e9 + 7;
+void f(vector<int> &a, int i, int l, int r, int k)
+{
+    if (l == r)
+    {
+        a[l] = i;
+        return;
+    }
+    int sz = (r - l - 1);
+    if (sz < 60 && k > (1LL << sz))
+    {
+        a[r] = i;
+        k -= (1LL << sz);
+        f(a, i + 1, l, r - 1, k);
+    }
+    else
+    {
+        a[l] = i;
+        f(a, i + 1, l + 1, r, k);
+    }
+}
 void solve()
 {
     int n, k;
     cin >> n >> k;
-    vector<int> company(k, 0);
-    for (int i = 0; i < k; i++)
+    if ((n - 1) < 62 && k > (1LL << (n - 1)))
     {
-        int idx, value;
-        cin >> idx >> value;
-        idx--;
-        company[idx] += value;
+        minus;
+        return;
     }
-    sort(company.begin(), company.end(), greater<int>());
-    int ans = 0;
-    for (int i = 0; i < min(n, k); i++)
+    vector<int> a(n + 1);
+    f(a, 1, 1, n, k);
+    for (int i = 1; i <= n; i++)
     {
-        ans += company[i];
+        cout << a[i] << " ";
     }
-    cout << ans << "\n";
+    cout << "\n";
 }
 
 int32_t main()

@@ -17,21 +17,15 @@ void solve()
 {
     int n, k;
     cin >> n >> k;
-    vector<int> company(k, 0);
-    for (int i = 0; i < k; i++)
-    {
-        int idx, value;
-        cin >> idx >> value;
-        idx--;
-        company[idx] += value;
-    }
-    sort(company.begin(), company.end(), greater<int>());
-    int ans = 0;
-    for (int i = 0; i < min(n, k); i++)
-    {
-        ans += company[i];
-    }
-    cout << ans << "\n";
+    int rem = 0;
+    if(n % 2 == 0 && (k+1)%2 == 0)
+        rem = (n-(n-k+1))/2;
+    else
+        rem = (n-(n-k+1))/2 + 1;
+    if (rem & 1)
+        no;
+    else
+        yes;
 }
 
 int32_t main()

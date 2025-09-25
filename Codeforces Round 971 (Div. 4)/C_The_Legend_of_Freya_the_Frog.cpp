@@ -1,3 +1,8 @@
+#ifndef ONLINE_JUDGE
+#include "debugger.h"
+#else
+#define dbg(...)
+#endif
 #include <bits/stdc++.h>
 #define int long long
 #define ll long long
@@ -15,23 +20,24 @@ using namespace std;
 const int mod = 1e9 + 7;
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    vector<int> company(k, 0);
-    for (int i = 0; i < k; i++)
+    int x, y, k;
+    cin >> x >> y >> k;
+    int mv1 = x / k;
+    if ((x % k))
+        mv1++;
+
+    int mv2 = y / k;
+    if ((y % k))
+        mv2++;
+    // cout << mv1 <<" " << mv2 <<"\n";
+    if (mv1 == mv2)
+        cout << mv1 + mv2 << "\n";
+    else if (mv1 < mv2)
     {
-        int idx, value;
-        cin >> idx >> value;
-        idx--;
-        company[idx] += value;
+        cout << 2 * mv2 << "\n";
     }
-    sort(company.begin(), company.end(), greater<int>());
-    int ans = 0;
-    for (int i = 0; i < min(n, k); i++)
-    {
-        ans += company[i];
-    }
-    cout << ans << "\n";
+    else
+        cout << 2 * mv1 - 1 << "\n";
 }
 
 int32_t main()
